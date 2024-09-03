@@ -1,0 +1,30 @@
+{
+  "name": "svg-process",
+  "version": "1.0.0",
+  "description": "Backend for svg-process nodejs",
+  "main": "server.js",
+  "scripts": {
+    "start": "npm run backend",
+    "backend": "node server.js",
+    "restart": "npm run stop && sleep 1 && npm start",
+    "stop": "node scripts/stop.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/playsetco/svg-process.git",
+    "issues": "https://github.com/playsetco/svg-process/issues"
+  },
+  "author": "Chad Cooper",
+  "license": "GPL-2.0",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jimp": "^0.22.12",
+    "potrace": "^2.1.1"
+  },
+  "bugs": {
+    "url": "https://github.com/playsetco/snippets-backend/issues"
+  }
+}

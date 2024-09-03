@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Converter</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        async function submitUrl() {
+            const urlInput = document.querySelector('input[type="text"]').value;
+            const colorInput = document.querySelector('input[type="color"]').value;
+            const response = await fetch('http://localhost:3000/image/svg', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ image: urlInput, color: colorInput })
+            });
+
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'image.svg';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            } else {
+                const errorDiv = document.getElementById('error');
+                errorDiv.innerHTML = `Error: ${response.statusText}`;
+                setTimeout(() => {
+                    errorDiv.innerHTML = '';
+                }, 5000);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>SVG Converter</h1>
+    <p>Enter a URL to convert an image to SVG</p>
+    <div class="view">
+        <div class="user-input">
+            <input type="text" placeholder="Enter url here">
+            <input type="color" value="#FFFFFF">
+        </div>
+        <button onclick="submitUrl()">Submit</button>
+    </div>
+    <div id="error"></div>
+</body>
+</html>
